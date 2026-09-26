@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Mario Kart–inspired 3D kart racer in Three.js — fully procedural assets, built by Claude Fable 5.1 from a single prompt",
+  "description": "Arc Turbo Kart (ARCTK) — High-octane 3D retro arcade kart racing built for the web with WebGL & 13% Community Airdrop.",
   "scripts": {
     "start": "node server.js 5173",
     "test:setup": "npm i three@0.160.0 jsdom --no-save --no-package-lock",
