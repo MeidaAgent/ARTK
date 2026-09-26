@@ -2597,20 +2597,25 @@ body {
 }
 
 .tier-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   align-self: flex-start;
   font-size: 10px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: rgba(255,255,255,0.1);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   color: var(--tier-color);
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
 }
 .wl-tier-card.featured .tier-badge {
-  background: var(--tier-color);
-  color: #000;
+  background: rgba(255, 213, 79, 0.15);
+  border-color: rgba(255, 213, 79, 0.4);
+  color: var(--gold);
+  box-shadow: 0 0 16px rgba(255, 213, 79, 0.18);
 }
 
 .tier-name {

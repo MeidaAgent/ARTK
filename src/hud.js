@@ -915,39 +915,39 @@ export class HUD {
       this.openTokenomicsModal();
     });
 
-    // Tier cards — Authentic Racing Tiers
+    // Tier cards — Authentic & Logical Racing Tiers
     const tiers = el('div', 'wl-tiers', wlSection);
     const TIERS = [
       {
-        badge: 'STREET RACER', name: 'Early Entry', color: '#4caf50',
+        badge: 'COMMUNITY', name: 'Public Whitelist', color: '#4caf50',
         perks: [
           'Guaranteed 1.0× baseline ARCTK airdrop',
-          'Verified early driver badge on profile',
-          'Eligible for pre-season community warm-up cups',
-          'Access to driver paddock discussion room',
+          'Verified racer badge on driver profile',
+          'Eligible for community Grand Prix seasonal cups',
+          'Access to open driver paddock room',
         ],
-        note: 'First 500 drivers',
+        note: 'Spots #1,001 – #5,000',
       },
       {
-        badge: 'APEX PRO', name: 'Boosted Grid', color: 'var(--gold)',
+        badge: 'EARLY ACCESS', name: 'Apex Driver', color: 'var(--gold)',
         perks: [
           'Boosted 1.5× token allocation multiplier',
           'Exclusive "Phantom Spark" midnight livery unlock',
-          'Priority matchmaking in ranked seasonal cups',
-          'Voting weight on upcoming community track proposals',
+          'Priority matchmaking in ranked seasonal tournaments',
+          'Governance voting on upcoming circuit tracks',
         ],
-        note: 'Drivers #501 to #2,000',
+        note: 'Early Drivers #101 – #1,000',
         featured: true,
       },
       {
-        badge: 'PODIUM LEGEND', name: 'Founders VIP', color: '#ff7043',
+        badge: 'FOUNDERS VIP', name: 'Podium Legend', color: '#ff7043',
         perks: [
           'Maximum 3.0× top-tier airdrop multiplier',
           'Permanent Gold Callsign in global race leaderboards',
           'Share in seasonal tournament host pool rewards',
           'Direct channel with core game creators in private paddock',
         ],
-        note: 'Top 100 qualified drivers only',
+        note: 'First 100 Drivers (#1 – #100)',
       },
     ];
     TIERS.forEach(({ badge, name, color, perks, note, featured }) => {
@@ -1387,9 +1387,9 @@ export class HUD {
               Guaranteed token allocation reserved exclusively for verified EVM wallet addresses registered through the official whitelist portal before launch.
             </p>
             <ul class="at-features">
-              <li><strong>Street Racer (Spots 1–500):</strong> 1.0x baseline weight allocation</li>
-              <li><strong>Apex Pro (Spots 501–2,000):</strong> 1.5x boosted weight + "Phantom Spark" livery</li>
-              <li><strong>Podium Legend (Top 100):</strong> 3.0x multiplier + permanent on-chain badge</li>
+              <li><strong>Founders VIP (#1–100):</strong> 3.0× top-tier multiplier + permanent Gold Callsign</li>
+              <li><strong>Apex Driver (#101–1,000):</strong> 1.5× boosted weight + "Phantom Spark" livery</li>
+              <li><strong>Public Whitelist (#1,001–5,000):</strong> 1.0× baseline weight allocation</li>
             </ul>
           </div>
 
