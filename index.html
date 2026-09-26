@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arc Turbo Kart</title>
+  <meta name="description" content="Arc Turbo Kart — a Mario Kart–inspired 3D kart racer built with Three.js. Fully procedural assets — drift, boost, items, 8-kart races." />
+  <meta name="theme-color" content="#0b1440" />
+  <meta property="og:title" content="Arc Turbo Kart" />
+  <meta property="og:description" content="Arc Turbo Kart — a Mario Kart–inspired 3D kart racer in Three.js with fully procedural assets. Race the Arc Circuit." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://turbo-kart-grand-prix.vercel.app/" />
+  <meta property="og:image" content="https://turbo-kart-grand-prix.vercel.app/docs/banner-arctk.png" />
+  <meta property="og:image:secure_url" content="https://turbo-kart-grand-prix.vercel.app/docs/banner-arctk.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Arc Turbo Kart — Race the Arc Circuit" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ArcTurboKart" />
+  <meta name="twitter:creator" content="@ArcTurboKart" />
+  <meta name="twitter:title" content="Arc Turbo Kart" />
+  <meta name="twitter:description" content="Arc Turbo Kart — a Mario Kart–inspired 3D kart racer in Three.js. Race the Arc Circuit." />
+  <meta name="twitter:image" content="https://turbo-kart-grand-prix.vercel.app/docs/banner-arctk.png" />
+  <link rel="icon" type="image/png" href="./docs/logoarctk.png" />
+  <link rel="shortcut icon" type="image/png" href="./docs/logoarctk.png" />
+  <link rel="apple-touch-icon" href="./docs/logoarctk.png" />
+  <link rel="stylesheet" href="./styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="hud"></div>
+  <div id="menu"></div>
+  <div id="results"></div>
+  <div id="overlay"></div>
+  <div id="loading"><div class="loading-inner"><div class="loading-logo">ARC TURBO KART</div><div class="loading-bar"><div class="loading-fill"></div></div><div class="loading-text">Building track…</div></div></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

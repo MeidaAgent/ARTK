@@ -1,0 +1,20 @@
+# Only the playable site is deployed; tooling, docs and generation scratch stay out.
+.claude
+.gitignore
+.tripo
+README.md
+dev
+docs/ARCHITECTURE.md
+docs/demo.gif
+docs/demo.mp4
+node_modules
+package.json
+server.js
+shots
+tests
+tools
+tripo-assets-2.yaml
+tripo-assets.yaml
+tripo-assets.yaml.state.json
+tripo-out
+docs/trailer.mp4
