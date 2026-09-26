@@ -476,7 +476,41 @@ export class HUD {
     leaderboardBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg> READ THE STORY';
     leaderboardBtn.type = 'button';
 
-    const stats = el('div', 'arc-stats', hero);
+    // Right column: Live Gameplay Preview card + 4 Stat Pills
+    const heroRight = el('div', 'arc-hero-right', hero);
+
+    const previewCard = el('div', 'arc-gameplay-preview', heroRight);
+    previewCard.innerHTML = `
+      <div class="gameplay-header-bar">
+        <div class="gameplay-live-badge">
+          <span class="rec-pulse-dot"></span>
+          <span>LIVE GAMEPLAY • ARC CIRCUIT</span>
+        </div>
+        <span class="gameplay-fps-tag">60 FPS 3D WEBGL</span>
+      </div>
+      <div class="gameplay-viewport">
+        <video class="gameplay-media" autoplay loop muted playsinline poster="./docs/race.jpg">
+          <source src="./docs/demo.mp4" type="video/mp4">
+          <img src="./docs/demo.gif" alt="Arc Turbo Kart 3D Gameplay" class="gameplay-media" />
+        </video>
+        <div class="viewport-hud-overlay">
+          <span class="vhud-tag">DRIFT • NITROUS • RED SHELLS</span>
+          <button type="button" class="vhud-play-btn" id="hero-preview-play-btn">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+            <span>TEST DRIVE</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Click anywhere on preview or test drive button to open race setup
+    previewCard.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!this.menuVisible) return;
+      this.openRaceSetupModal();
+    });
+
+    const stats = el('div', 'arc-stats', heroRight);
     const statDefs = [
       { label: 'Track', val: 'Arc Grand Circuit' },
       { label: 'Community', val: '13% Airdrop' },

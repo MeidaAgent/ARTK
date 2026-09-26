@@ -324,17 +324,25 @@ body {
 .arc-hero {
   width: min(1200px, 92vw);
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 22px;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
   align-items: center;
 }
 
 .arc-copy,
+.arc-hero-right,
 .arc-stats,
 .arc-board,
 .menu-controls {
   position: relative;
   z-index: 1;
+}
+
+.arc-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
 }
 
 .arc-copy {
@@ -668,39 +676,168 @@ body {
   min-height: 1em;
 }
 
+/* =====================================================================
+   HERO GAMEPLAY PREVIEW & STATS
+   ===================================================================== */
+
+.arc-gameplay-preview {
+  position: relative;
+  background: rgba(12, 16, 38, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 2px solid var(--gold);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 24px rgba(255, 183, 3, 0.08);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+  cursor: pointer;
+}
+.arc-gameplay-preview:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 183, 3, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 32px rgba(255, 183, 3, 0.2);
+}
+
+.gameplay-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gameplay-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #fff;
+}
+
+.rec-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff5252;
+  box-shadow: 0 0 8px #ff5252;
+  animation: recPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes recPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.8); }
+}
+
+.gameplay-fps-tag {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.12);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.gameplay-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 520 / 292;
+  background: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameplay-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.viewport-hud-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.82) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.vhud-tag {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+.vhud-play-btn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffb703 0%, #ff7a18 100%);
+  border: none;
+  color: #110e05;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 122, 24, 0.4);
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.vhud-play-btn:hover {
+  transform: scale(1.06);
+  filter: brightness(1.15);
+}
+
 .arc-stats {
   display: grid;
-  gap: 12px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 
 .stat-card {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 1.2em 1.4em;
-  min-height: 96px;
+  gap: 4px;
+  padding: 0.9em 1.1em;
+  min-height: 72px;
   background: rgba(14, 18, 42, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-top: 2px solid rgba(255, 213, 79, 0.45);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 36px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,213,79,0.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,213,79,0.25);
 }
 
 .stat-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   color: rgba(255,213,79,0.75);
   text-transform: uppercase;
 }
 
 .stat-value {
-  font-size: clamp(18px, 2.8vmin, 28px);
+  font-size: clamp(16px, 2.2vmin, 22px);
   font-weight: 900;
   color: #fff;
   letter-spacing: 0.02em;
