@@ -2727,6 +2727,24 @@ body {
   letter-spacing: 0.05em;
   padding-top: 16px;
   border-top: 1px solid rgba(255,255,255,0.1);
+.wl-banner-img-wrap {
+  width: 100%;
+  max-width: 680px;
+  margin: 16px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5), 0 0 25px rgba(0, 229, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.wl-banner-img-wrap:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.6), 0 0 35px rgba(255, 183, 3, 0.3);
+}
+.wl-announcement-banner {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .wl-dist-banner {

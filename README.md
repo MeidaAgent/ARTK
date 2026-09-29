@@ -9,6 +9,8 @@
 **Official CA:** `0x9bc50c9a729598dbd749df323d10233b9da8999d`  
 **Status:** Token Deployed • Whitelist Closed • **13% Community Airdrop Distribution:** Tomorrow (1 Day Post-Deploy)
 
+<img src="docs/banner-whitelist-closed.jpg" alt="ARCTK Whitelist Closed & Distribution Announcement" width="800" />
+
 **[🎬 Watch the trailer](docs/trailer.mp4)** — 40 s, rendered in-engine with scripted cameras and an original chiptune
 
 <a href="docs/demo.mp4"><img src="docs/demo.gif" alt="Gameplay demo" width="800" /></a>

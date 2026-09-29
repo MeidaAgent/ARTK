@@ -883,6 +883,9 @@ export class HUD {
       </div>
     `;
 
+    const imgBanner = el('div', 'wl-banner-img-wrap', wlHead);
+    imgBanner.innerHTML = `<img src="./docs/banner-whitelist-closed.jpg" alt="ARCTK Whitelist Closed & Distribution Announcement" class="wl-announcement-banner">`;
+
     el('p', 'wl-desc', wlHead,
       'ARCTK powers the official Arc Turbo Kart circuit ecosystem. ' +
       '13% of the total token supply is dedicated 100% to the community through guaranteed whitelist ' +
