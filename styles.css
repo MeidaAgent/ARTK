@@ -2729,6 +2729,89 @@ body {
   border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+.wl-dist-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(255, 183, 3, 0.15), rgba(255, 107, 0, 0.12));
+  border: 1px solid rgba(255, 183, 3, 0.45);
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin: 14px 0 18px 0;
+  text-align: left;
+  box-shadow: 0 4px 24px rgba(255, 183, 3, 0.15);
+}
+.dist-banner-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(255, 183, 3, 0.2);
+  color: var(--gold);
+  flex-shrink: 0;
+}
+.dist-banner-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.dist-banner-tag {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.dist-banner-title {
+  font-size: 16px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.dist-banner-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.5;
+}
+
+.wl-closed-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.wl-closed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: rgba(255, 183, 3, 0.15);
+  border: 1px solid rgba(255, 183, 3, 0.45);
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.wl-check-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.wl-check-row {
+  display: flex;
+  gap: 8px;
+}
+.wl-check-res {
+  min-height: 18px;
+  text-align: left;
+}
+
 .wl-form-wrap {
   display: flex;
   justify-content: center;

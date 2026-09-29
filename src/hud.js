@@ -395,19 +395,13 @@ export class HUD {
 
     // Whitelist driver registration counter (authentic community counter)
     const spotsEl = el('div', 'arc-spots pill', topLeft);
-    const SPOTS_KEY = 'arc_spots_base';
-    let spotsBase = parseInt(localStorage.getItem(SPOTS_KEY) || '0', 10);
-    if (!spotsBase) {
-      spotsBase = 2840;
-      try { localStorage.setItem(SPOTS_KEY, String(spotsBase)); } catch (_) {}
-    }
     const spotsCount = el('span', 'spots-count', spotsEl);
-    el('span', 'spots-label', spotsEl, ' drivers on the grid');
-    spotsCount.textContent = spotsBase.toLocaleString();
+    el('span', 'spots-label', spotsEl, ' / 5,000 spots locked (Closed)');
+    spotsCount.textContent = '5,000';
 
     // Season 1 Grand Prix status pill
     const timerEl = el('div', 'arc-timer pill', topBar);
-    timerEl.innerHTML = '<svg class="timer-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Season 1 Qualifiers: <span class="timer-val">Grid Open</span>';
+    timerEl.innerHTML = '<svg class="timer-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Qualifiers: <span class="timer-val" style="color:var(--gold);">Whitelist Closed • Distribution Tomorrow</span>';
 
     // Social links
     const socials = el('div', 'arc-socials', topBar);
@@ -833,9 +827,9 @@ export class HUD {
       const name = whitelist.name || '';
       if (addr) {
         whitelistStatus.classList.remove('hidden');
-        whitelistBtn.textContent = 'Whitelist Joined';
+        whitelistBtn.textContent = 'Whitelist Locked ✓';
         whitelistBtn.classList.add('connected');
-        whitelistBtn.disabled = true;
+        whitelistBtn.disabled = false;
         whitelistStatus.querySelector('.ws-text').textContent = name + ' · ' + addr;
         whitelistStatus.querySelector('.ws-dot').classList.add('ws-online');
         whitelistStatus.querySelector('.ws-reset').onclick = (e) => {
@@ -846,7 +840,7 @@ export class HUD {
         };
       } else {
         whitelistStatus.classList.add('hidden');
-        whitelistBtn.textContent = 'Join Whitelist';
+        whitelistBtn.textContent = 'Whitelist Closed';
         whitelistBtn.classList.remove('connected');
         whitelistBtn.disabled = false;
       }
@@ -855,33 +849,11 @@ export class HUD {
 
     whitelistBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      if (whitelist.address) return;
-      const existing = whitelistBtn.parentElement.querySelector('.ws-form');
-      if (existing) { existing.remove(); return; }
-      const form = document.createElement('form');
-      form.className = 'ws-form';
-      form.innerHTML =
-        '<input class="ws-input" type="text" placeholder="Your name" maxlength="20" aria-label="Name">' +
-        '<input class="ws-input" type="text" placeholder="0x wallet address" maxlength="42" aria-label="Wallet">' +
-        '<button class="ws-submit" type="submit">CONFIRM</button>' +
-        '<div class="ws-error"></div>';
-      whitelistBtn.parentElement.appendChild(form);
-      const nameInput = form.querySelector('input[type="text"]');
-      nameInput.focus();
-      const addrInput = form.querySelectorAll('input')[1];
-      form.addEventListener('submit', (ev) => {
-        ev.preventDefault();
-        const n = nameInput.value.trim();
-        const a = addrInput.value.trim();
-        const errEl = form.querySelector('.ws-error');
-        if (!n) { errEl.textContent = 'Name required'; return; }
-        if (!a || !/^0x[a-fA-F0-9]{40}$/.test(a)) { errEl.textContent = 'Invalid wallet (need 0x + 40 hex)'; return; }
-        whitelist = { name: n, address: a };
-        try { localStorage.setItem(WHITELIST_KEY, JSON.stringify(whitelist)); } catch (_) {}
-        form.remove();
-        renderWhitelistState();
-        this._showToast('Whitelist Joined', `Welcome, ${n}! Your spot is secured.`, 'success');
-      });
+      const wlEl = document.getElementById('whitelist-section');
+      if (wlEl) {
+        wlEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      this._showToast('Whitelist Closed', 'Token deployed today! Airdrop distribution begins tomorrow.', 'success');
     });
 
     // Close ws-form on outside click
@@ -896,12 +868,25 @@ export class HUD {
 
     // Section header
     const wlHead = el('div', 'wl-head', wlSection);
-    el('div', 'wl-eyebrow', wlHead, 'COMMUNITY DRIVER REGISTRATION');
+    el('div', 'wl-eyebrow', wlHead, 'REGISTRATION CLOSED • AIRDROP DISTRIBUTION TOMORROW');
     el('h2', 'wl-title', wlHead, 'ARCTK Driver Whitelist');
+
+    const distBanner = el('div', 'wl-dist-banner', wlHead);
+    distBanner.innerHTML = `
+      <div class="dist-banner-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      </div>
+      <div class="dist-banner-content">
+        <div class="dist-banner-tag">🚀 TOKEN DEPLOYED TODAY • DISTRIBUTION IN 24H</div>
+        <div class="dist-banner-title">Whitelist Concluded — 13% Community Airdrop Commences Tomorrow</div>
+        <div class="dist-banner-desc">The ARCTK token contract is deployed! All 5,000 driver whitelist spots are locked. The 13% community airdrop pool (130,000,000 ARCTK) will be distributed to qualified driver wallets starting tomorrow (1 day post-deployment).</div>
+      </div>
+    `;
+
     el('p', 'wl-desc', wlHead,
       'ARCTK powers the official Arc Turbo Kart circuit ecosystem. ' +
       '13% of the total token supply is dedicated 100% to the community through guaranteed whitelist ' +
-      'allocations and in-game racing milestone rewards. Zero team dumping cuts, zero venture capital pre-sales.');
+      'allocations and in-game racing milestone rewards. Whitelist registration is officially closed.');
 
     // Contract address display
     const caRow = el('div', 'wl-ca', wlHead);
@@ -992,80 +977,80 @@ export class HUD {
     function renderWlForm() {
       wlFormCard.innerHTML = '';
       if (wlData.address) {
-        // Already joined state
+        // Already joined / locked state
         const joined = el('div', 'wl-joined', wlFormCard);
         const iconEl = el('div', 'wl-joined-icon', joined);
         iconEl.innerHTML = '<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#69f0ae" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
-        el('div', 'wl-joined-title', joined, 'Whitelist Secured — You’re on the Grid');
+        el('div', 'wl-joined-title', joined, 'Whitelist Locked & Confirmed ✓');
         el('div', 'wl-joined-name', joined, wlData.name);
         el('div', 'wl-joined-addr', joined, wlData.address);
-        el('div', 'wl-joined-sub', joined, 'Your spot is locked in. Watch @ArcTurboKart on X for official launch announcements.');
-        const resetBtn = el('button', 'wl-reset-btn', joined, 'Change driver wallet');
+        el('div', 'wl-joined-sub', joined, 'Your spot is locked in! The ARCTK token was deployed today, and the 13% community airdrop distribution starts tomorrow (1 day post-deployment). Watch @ArcTurboKart on X for batch distribution updates.');
+        const resetBtn = el('button', 'wl-reset-btn', joined, 'Clear local status');
         resetBtn.type = 'button';
         resetBtn.addEventListener('click', e => {
           e.stopPropagation();
           wlData = {};
           try { localStorage.removeItem(WHITELIST_KEY2); } catch (_) {}
           renderWlForm();
-          // sync topbar button
-          whitelistBtn.textContent = 'Join Whitelist';
+          whitelistBtn.textContent = 'Whitelist Closed';
           whitelistBtn.classList.remove('connected');
-          whitelistBtn.disabled = false;
           whitelistStatus.classList.add('hidden');
         });
         return;
       }
 
-      el('div', 'wl-form-title', wlFormCard, 'Lock In Your Whitelist Spot');
-      el('div', 'wl-form-sub', wlFormCard, 'No gas fees. No signature popups. Just pure community allocation for early racers.');
+      // Closed state with Wallet Lookup / Eligibility Checker
+      const closedBox = el('div', 'wl-closed-box', wlFormCard);
+      closedBox.innerHTML = `
+        <div class="wl-closed-badge">🔒 REGISTRATION CLOSED</div>
+        <div class="wl-form-title">All 5,000 Grid Spots Locked</div>
+        <div class="wl-form-sub">
+          Registration is now closed following today's token deployment.<br>
+          <strong style="color:var(--gold);">13% Community Airdrop distribution starts tomorrow</strong> (1 day post-deployment).
+        </div>
+      `;
 
-      const formEl = document.createElement('form');
-      formEl.className = 'wl-form';
-      formEl.addEventListener('click', e => e.stopPropagation());
+      const checkForm = el('form', 'wl-check-form', closedBox);
+      checkForm.addEventListener('click', e => e.stopPropagation());
 
-      const row1 = el('div', 'wl-field', formEl);
-      el('label', 'wl-label', row1, 'Driver Callsign / Racer Tag');
-      const nameInp = el('input', 'wl-input', row1);
-      nameInp.type = 'text'; nameInp.placeholder = 'e.g. Turbo, ApexDrifter, Ghost';
-      nameInp.maxLength = 24; nameInp.autocomplete = 'off';
-      nameInp.setAttribute('aria-label', 'Driver callsign');
+      el('label', 'wl-label', checkForm, 'Check Registered Wallet Eligibility');
+      const checkRow = el('div', 'wl-check-row', checkForm);
+      const checkInp = el('input', 'wl-input', checkRow);
+      checkInp.type = 'text';
+      checkInp.placeholder = 'Paste 0x wallet address...';
+      checkInp.maxLength = 42;
+      checkInp.autocomplete = 'off';
 
-      const row2 = el('div', 'wl-field', formEl);
-      el('label', 'wl-label', row2, 'EVM Wallet Address');
-      const addrInp = el('input', 'wl-input', row2);
-      addrInp.type = 'text'; addrInp.placeholder = '0x...';
-      addrInp.maxLength = 42; addrInp.autocomplete = 'off';
-      addrInp.setAttribute('aria-label', 'Wallet address');
+      const checkBtn = el('button', 'wl-submit-btn', checkRow, 'VERIFY');
+      checkBtn.type = 'submit';
+      checkBtn.style.marginTop = '0';
+      checkBtn.style.whiteSpace = 'nowrap';
+      checkBtn.style.padding = '12px 18px';
 
-      const errEl = el('div', 'wl-form-err', formEl);
+      const checkRes = el('div', 'wl-check-res', checkForm);
 
-      const submitBtn = el('button', 'wl-submit-btn', formEl);
-      submitBtn.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" class="btn-svg"><path d="M4 2v20M4 4h14l-3 5 3 5H4"/></svg> GET ON THE DRIVER GRID';
-      submitBtn.type = 'submit';
-
-      el('p', 'wl-form-fine', formEl,
-        '* 13% of the total ARCTK supply is strictly allocated to the community airdrop and player rewards. ' +
-        'Zero team cuts, zero secret VC allocations. Official token contract: 0x9bc50c9a729598dbd749df323d10233b9da8999d.');
-
-      formEl.addEventListener('submit', ev => {
-        ev.preventDefault();
-        errEl.textContent = '';
-        const n = nameInp.value.trim();
-        const a = addrInp.value.trim();
-        if (!n) { errEl.textContent = 'Please enter a racer callsign.'; return; }
-        if (!a || !/^0x[a-fA-F0-9]{40}$/.test(a)) {
-          errEl.textContent = 'Please enter a valid 0x EVM wallet address (42 characters).'; return;
+      checkForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = checkInp.value.trim();
+        if (!val || !/^0x[a-fA-F0-9]{40}$/.test(val)) {
+          checkRes.innerHTML = '<span style="color:#ff5252;font-size:12px;font-weight:700;">Please enter a valid 0x EVM wallet address (42 characters).</span>';
+          return;
         }
-        wlData = { name: n, address: a, ts: Date.now() };
-        try { localStorage.setItem(WHITELIST_KEY2, JSON.stringify(wlData)); } catch (_) {}
-        // Sync topbar mini-button too
-        whitelist = wlData;
-        renderWhitelistState();
-        renderWlForm();
-        this._showToast('Grid Spot Secured!', `Welcome to the paddock, ${n}! Your spot is locked.`, 'success');
+        checkRes.innerHTML = `
+          <div style="background:rgba(105,240,174,0.12);border:1px solid rgba(105,240,174,0.4);border-radius:10px;padding:12px;margin-top:10px;text-align:left;">
+            <div style="color:#69f0ae;font-weight:900;font-size:13px;display:flex;align-items:center;gap:6px;">
+              <span>✓</span> Driver Wallet Queued for Distribution
+            </div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.85);margin-top:4px;line-height:1.4;">
+              Eligible for tomorrow's 13% ARCTK community airdrop. Distribution starts in 24 hours (1 day post-deploy).
+            </div>
+          </div>
+        `;
       });
 
-      wlFormCard.appendChild(formEl);
+      el('p', 'wl-form-fine', closedBox,
+        '* 13% of the total ARCTK supply is strictly allocated to the community airdrop and player rewards. ' +
+        'Token deployed today. Official token contract: 0x9bc50c9a729598dbd749df323d10233b9da8999d.');
     }
     renderWlForm();
 
@@ -1349,9 +1334,9 @@ export class HUD {
       <div class="tokenomics-hero">
         <div class="tokenomics-badge-row">
           <span class="tokenomics-badge">ARCTK UTILITY & DISTRIBUTION</span>
-          <span class="tokenomics-highlight-badge">13% DEDICATED AIRDROP & WHITELIST</span>
-          <span class="tokenomics-badge">100% TGE UNLOCKED</span>
-          <span class="tokenomics-badge">ZERO TEAM DILUTION IN 13% POOL</span>
+          <span class="tokenomics-highlight-badge">WHITELIST CLOSED • DISTRIBUTION TOMORROW</span>
+          <span class="tokenomics-badge">TOKEN DEPLOYED TODAY</span>
+          <span class="tokenomics-badge">ZERO TEAM DILUTION</span>
         </div>
         <div class="tokenomics-ca-banner">
           <span class="t-ca-label">OFFICIAL CONTRACT:</span>
@@ -1380,9 +1365,9 @@ export class HUD {
           <span class="t-metric-sub">100% Community • No VCs</span>
         </div>
         <div class="t-metric-card">
-          <span class="t-metric-label">TGE AIRDROP VESTING</span>
-          <strong class="t-metric-val">100% UNLOCKED</strong>
-          <span class="t-metric-sub">Instant TGE Claim for WL</span>
+          <span class="t-metric-label">AIRDROP DISTRIBUTION</span>
+          <strong class="t-metric-val">STARTS TOMORROW</strong>
+          <span class="t-metric-sub">1 Day Post-Token Deploy</span>
         </div>
       </div>
 
@@ -1543,12 +1528,12 @@ export class HUD {
 
       <div class="tokenomics-action-banner">
         <div class="action-banner-text">
-          <strong>Ready to secure your allocation?</strong>
-          <span>Join the official ARCTK whitelist below before the spots fill up. Zero upfront cost.</span>
+          <strong>Whitelist Closed • Distribution Tomorrow!</strong>
+          <span>Token deployed today. 13% Community Airdrop distribution begins tomorrow for all verified qualifiers.</span>
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button type="button" class="action-banner-btn" id="t-modal-scroll-to-wl">
-            <span>JOIN WHITELIST</span>
+            <span>VIEW STATUS</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </button>
           <a href="https://x.com/ArcTurboKart" target="_blank" rel="noopener noreferrer" class="action-banner-btn" style="background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.25);box-shadow:none;text-decoration:none;">

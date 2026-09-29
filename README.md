@@ -6,7 +6,8 @@
 
 ### [▶ Play it live](https://artk-nu.vercel.app)
 
-**Official CA:** `0x9bc50c9a729598dbd749df323d10233b9da8999d`
+**Official CA:** `0x9bc50c9a729598dbd749df323d10233b9da8999d`  
+**Status:** Token Deployed • Whitelist Closed • **13% Community Airdrop Distribution:** Tomorrow (1 Day Post-Deploy)
 
 **[🎬 Watch the trailer](docs/trailer.mp4)** — 40 s, rendered in-engine with scripted cameras and an original chiptune
 
