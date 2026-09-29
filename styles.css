@@ -1069,6 +1069,56 @@ body {
   color: #ffb703;
 }
 
+.tokenomics-ca-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px dashed rgba(255, 183, 3, 0.4);
+  border-radius: 8px;
+  padding: 8px 14px;
+  margin: 4px 0;
+}
+.t-ca-label {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.t-ca-code {
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  color: var(--gold);
+  background: rgba(255, 183, 3, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  word-break: break-all;
+}
+.t-ca-code:hover {
+  text-decoration: underline;
+}
+.t-ca-copy-btn {
+  background: rgba(255, 183, 3, 0.18);
+  border: 1px solid rgba(255, 183, 3, 0.5);
+  color: var(--gold);
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.t-ca-copy-btn:hover {
+  background: rgba(255, 183, 3, 0.35);
+  border-color: #ffb703;
+  transform: translateY(-1px);
+  box-shadow: 0 0 12px rgba(255, 183, 3, 0.35);
+}
+
 .tokenomics-title {
   margin: 0;
   font-size: clamp(20px, 3vmin, 26px);
@@ -2529,6 +2579,7 @@ body {
 .wl-ca {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 8px 16px;
   background: rgba(0,0,0,0.4);
@@ -2537,11 +2588,33 @@ body {
   font-family: Consolas, monospace;
   font-size: 13px;
 }
-.ca-label { color: rgba(255,255,255,0.5); }
+.ca-label { color: rgba(255,255,255,0.5); font-weight: 700; }
 .ca-val { color: var(--gold); }
+.ca-val:hover { text-decoration: underline; }
+
+.ca-copy-btn {
+  background: rgba(255, 183, 3, 0.15);
+  border: 1px solid rgba(255, 183, 3, 0.45);
+  color: var(--gold);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.ca-copy-btn:hover {
+  background: rgba(255, 183, 3, 0.3);
+  border-color: var(--gold);
+  transform: translateY(-1px);
+  box-shadow: 0 0 14px rgba(255, 183, 3, 0.35);
+}
 
 .ca-tk-shortcut {
-  margin-left: 10px;
+  margin-left: 4px;
   background: rgba(0, 229, 255, 0.12);
   border: 1px solid rgba(0, 229, 255, 0.45);
   color: #00e5ff;

@@ -905,9 +905,25 @@ export class HUD {
 
     // Contract address display
     const caRow = el('div', 'wl-ca', wlHead);
-    el('span', 'ca-label', caRow, 'Token:');
-    const caVal = el('span', 'ca-val', caRow, 'ARCTK — Official Contract TBA at Launch');
-    caVal.title = 'Contract address will be published on official X (@ArcTurboKart) at launch';
+    el('span', 'ca-label', caRow, 'CA:');
+    const caVal = el('span', 'ca-val', caRow, '0x9bc50c9a729598dbd749df323d10233b9da8999d');
+    caVal.title = 'Click to copy contract address';
+    caVal.style.cursor = 'pointer';
+
+    const copyCaBtn = el('button', 'ca-copy-btn', caRow, '📋 Copy CA');
+    copyCaBtn.type = 'button';
+    copyCaBtn.title = 'Copy Contract Address';
+
+    const copyCaHandler = (e) => {
+      e?.stopPropagation?.();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('0x9bc50c9a729598dbd749df323d10233b9da8999d');
+      }
+      this._showToast('CA Copied!', '0x9bc50c9a729598dbd749df323d10233b9da8999d', 'success');
+    };
+    copyCaBtn.addEventListener('click', copyCaHandler);
+    caVal.addEventListener('click', copyCaHandler);
+
     const caTkBtn = el('button', 'ca-tk-shortcut', caRow, 'View 13% Tokenomics');
     caTkBtn.type = 'button';
     caTkBtn.addEventListener('click', (e) => {
@@ -1029,7 +1045,7 @@ export class HUD {
 
       el('p', 'wl-form-fine', formEl,
         '* 13% of the total ARCTK supply is strictly allocated to the community airdrop and player rewards. ' +
-        'Zero team cuts, zero secret VC allocations. Official token launch and contract addresses will be announced on @ArcTurboKart.');
+        'Zero team cuts, zero secret VC allocations. Official token contract: 0x9bc50c9a729598dbd749df323d10233b9da8999d.');
 
       formEl.addEventListener('submit', ev => {
         ev.preventDefault();
@@ -1337,6 +1353,11 @@ export class HUD {
           <span class="tokenomics-badge">100% TGE UNLOCKED</span>
           <span class="tokenomics-badge">ZERO TEAM DILUTION IN 13% POOL</span>
         </div>
+        <div class="tokenomics-ca-banner">
+          <span class="t-ca-label">OFFICIAL CONTRACT:</span>
+          <code class="t-ca-code" id="t-ca-code-val" title="Click to copy CA">0x9bc50c9a729598dbd749df323d10233b9da8999d</code>
+          <button type="button" class="t-ca-copy-btn" id="modal-copy-ca-btn">📋 Copy CA</button>
+        </div>
         <p class="tokenomics-intro">
           The ARCTK token powers the decentralized racing economy of Arc Turbo Kart. Built with clear on-chain utilities, sustainable deflationary sinks, and a community-first allocation where the entire 13% airdrop pool is dedicated strictly to racers and verified whitelist members — zero private VC or insider allocations.
         </p>
@@ -1539,6 +1560,18 @@ export class HUD {
     `;
 
     // Wire actions inside modal
+    const modalCaBtn = body.querySelector('#modal-copy-ca-btn');
+    const modalCaCode = body.querySelector('#t-ca-code-val');
+    const copyModalCa = (e) => {
+      e?.stopPropagation?.();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText('0x9bc50c9a729598dbd749df323d10233b9da8999d');
+      }
+      this._showToast('CA Copied!', '0x9bc50c9a729598dbd749df323d10233b9da8999d', 'success');
+    };
+    modalCaBtn?.addEventListener('click', copyModalCa);
+    modalCaCode?.addEventListener('click', copyModalCa);
+
     const wlScrollBtn = body.querySelector('#t-modal-scroll-to-wl');
     if (wlScrollBtn) {
       wlScrollBtn.addEventListener('click', (e) => {
